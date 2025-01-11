@@ -2,7 +2,7 @@ from src.category import Category
 from src.product import Product
 from src.category import load_categories_from_json
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     product1 = Product(
         "Samsung Galaxy S23 Ultra",
         "256GB, Серый цвет, 200MP камера",
