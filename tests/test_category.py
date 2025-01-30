@@ -9,10 +9,9 @@ def test_category_initialization():
     product1 = Product("Ноутбук", "Мощный игровой ноутбук", 999.99, 10)
     product2 = Product("Смартфон", "Смартфон с OLED-экраном", 699.99, 15)
     electronics = Category("Электроника", "Техника для дома и офиса", [product1, product2])
-
     assert electronics.name == "Электроника"
     assert electronics.description == "Техника для дома и офиса"
-    assert len(electronics.products) == 2
+    assert len(electronics._Category__products) == 2  # Проверяем длину приватного списка
 
 
 def test_category_count():
