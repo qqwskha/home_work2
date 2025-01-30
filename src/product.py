@@ -40,3 +40,9 @@ class Product:
     def __str__(self):
         """Строковое представление продукта."""
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        """Магический метод сложения двух продуктов."""
+        if isinstance(other, Product):
+            return self.price * self.quantity + other.price * other.quantity
+        raise TypeError("Нельзя складывать объекты разных типов")
