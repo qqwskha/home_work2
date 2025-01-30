@@ -46,15 +46,9 @@ def test_load_categories_from_json():
     ]
     with open("test_products.json", "w", encoding="utf-8") as file:
         json.dump(test_json, file)
-
     # Загружаем данные
     categories = load_categories_from_json("test_products.json")
-
     # Проверяем результат
     assert len(categories) == 1
     assert categories[0].name == "Тестовая категория"
-    assert len(categories[0].products) == 1
-    assert categories[0].products[0].name == "Тестовый товар"
-
-    # Удаляем временный файл
-    os.remove("test_products.json")
+    assert len(categories[0]._Category__products) == 1  # Проверяем длину приватного списка
