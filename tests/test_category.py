@@ -57,3 +57,18 @@ def test_category_str():
     product2 = Product("Смартфон", "Смартфон с OLED-экраном", 699.99, 15)
     electronics = Category("Электроника", "Техника для дома и офиса", [product1, product2])
     assert str(electronics) == "Электроника, количество продуктов: 25 шт."
+
+
+def test_add_valid_product():
+    category = Category("Test", "Description", [])
+    product = Product("Test Product", "Desc", 100.0, 5)
+    category.add_product(product)
+    assert len(category._Category__products) == 1
+
+def test_add_invalid_product():
+    category = Category("Test", "Description", [])
+    invalid_product = "Not a product"
+    try:
+        category.add_product(invalid_product)
+    except TypeError as e:
+        assert str(e) == "В категорию можно добавлять только объекты класса Product или его наследников"
