@@ -79,6 +79,6 @@ if __name__ == "__main__":  # pragma: no cover
         print(f"Описание: {category.description}")
         print(f"Количество товаров: {len(category.products)}")
         print("Товары:")
-        for product in category.products:
+        for product in category.products:  # Используем геттер для списка товаров
             print(f"  - {product.name}: {product.price} руб. (Остаток: {product.quantity})")
         print()

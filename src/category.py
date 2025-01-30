@@ -23,7 +23,11 @@ class Category:
 
     @property
     def products(self):
-        """Геттер для вывода списка товаров."""
+        """Геттер для получения списка товаров."""
+        return self.__products
+
+    def get_products_info(self):
+        """Возвращает строку с информацией о товарах."""
         return "\n".join(
             f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
             for product in self.__products
