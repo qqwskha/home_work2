@@ -50,3 +50,10 @@ def test_load_categories_from_json():
     assert len(categories) == 1
     assert categories[0].name == "Тестовая категория"
     assert len(categories[0]._Category__products) == 1  # Проверяем длину приватного списка
+
+
+def test_category_str():
+    product1 = Product("Ноутбук", "Мощный игровой ноутбук", 999.99, 10)
+    product2 = Product("Смартфон", "Смартфон с OLED-экраном", 699.99, 15)
+    electronics = Category("Электроника", "Техника для дома и офиса", [product1, product2])
+    assert str(electronics) == "Электроника, количество продуктов: 25 шт."
