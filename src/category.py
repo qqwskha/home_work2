@@ -33,6 +33,11 @@ class Category:
             for product in self.__products
         )
 
+    def __str__(self):
+        """Строковое представление категории."""
+        total_quantity = sum(product.quantity for product in self.__products)
+        return f"{self.name}, количество продуктов: {total_quantity} шт."
+
 
 def load_categories_from_json(file_path: str):
     """
