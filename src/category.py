@@ -18,8 +18,11 @@ class Category:
 
     def add_product(self, product):
         """Добавляет товар в приватный список продуктов."""
-        self.__products.append(product)
-        Category.product_count += 1  # Увеличиваем счетчик товаров
+        if isinstance(product, Product):  # Проверяем, что объект является продуктом
+            self.__products.append(product)
+            Category.product_count += 1
+        else:
+            raise TypeError("В категорию можно добавлять только объекты класса Product или его наследников")
 
     @property
     def products(self):
