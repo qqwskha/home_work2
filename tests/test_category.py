@@ -1,8 +1,7 @@
-from src.category import Category
-from src.product import Product
-import os
-from src.category import load_categories_from_json
 import json
+
+from src.category import Category, load_categories_from_json
+from src.product import Product
 
 
 def test_category_initialization():
