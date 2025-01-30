@@ -32,3 +32,14 @@ def test_price_getter_and_setter():
 
     product.price = 150.0  # Корректная цена
     assert product.price == 150.0  # Проверка установки новой цены
+
+
+def test_product_str():
+    product = Product("Тестовый товар", "Описание", 100.0, 5)
+    assert str(product) == "Тестовый товар, 100.0 руб. Остаток: 5 шт."
+
+
+def test_product_addition():
+    product1 = Product("Товар 1", "Описание", 100.0, 10)
+    product2 = Product("Товар 2", "Описание", 200.0, 5)
+    assert product1 + product2 == 2000.0
