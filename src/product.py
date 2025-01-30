@@ -2,8 +2,26 @@ class Product:
     def __init__(self, name: str, description: str, price: float, quantity: int):
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price  # Приватный атрибут
         self.quantity = quantity
+
+    @property
+    def price(self):
+        """Геттер для цены."""
+        return self.__price
+
+    @price.setter
+    def price(self, new_price: float):
+        """Сеттер для цены."""
+        if new_price <= 0:
+            print("Цена не должна быть нулевая или отрицательная")
+        else:
+            if hasattr(self, '_Product__price') and new_price < self.__price:
+                confirmation = input("Цена снижается. Подтвердите действие (y/n): ")
+                if confirmation.lower() != 'y':
+                    print("Изменение цены отменено.")
+                    return
+            self.__price = new_price
 
 
 @classmethod
