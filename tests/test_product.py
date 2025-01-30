@@ -70,3 +70,16 @@ def test_lawn_grass_creation():
     assert grass.country == "Россия"
     assert grass.germination_period == "7 дней"
     assert grass.color == "Зеленый"
+
+def test_addition_same_class():
+    smartphone1 = Smartphone("Samsung", "Desc", 100.0, 10, 90.0, "Model", 128, "Black")
+    smartphone2 = Smartphone("Apple", "Desc", 200.0, 5, 95.0, "Model", 256, "White")
+    assert smartphone1 + smartphone2 == 2000.0
+
+def test_addition_different_classes():
+    smartphone = Smartphone("Samsung", "Desc", 100.0, 10, 90.0, "Model", 128, "Black")
+    grass = LawnGrass("Grass", "Desc", 50.0, 20, "USA", "5 days", "Green")
+    try:
+        result = smartphone + grass
+    except TypeError as e:
+        assert str(e) == "Нельзя складывать объекты разных типов"
