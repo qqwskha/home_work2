@@ -1,8 +1,7 @@
-from src.category import Category
+from src.category import Category, load_categories_from_json
 from src.product import Product
-from src.category import load_categories_from_json
 
-if __name__ == "__main__": # pragma: no cover
+if __name__ == "__main__":  # pragma: no cover
     product1 = Product(
         "Samsung Galaxy S23 Ultra",
         "256GB, Серый цвет, 200MP камера",
@@ -80,6 +79,6 @@ if __name__ == "__main__": # pragma: no cover
         print(f"Описание: {category.description}")
         print(f"Количество товаров: {len(category.products)}")
         print("Товары:")
-        for product in category.products:
+        for product in category.products:  # Используем геттер для списка товаров
             print(f"  - {product.name}: {product.price} руб. (Остаток: {product.quantity})")
         print()

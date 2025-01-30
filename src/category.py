@@ -1,4 +1,5 @@
 import json
+
 from src.product import Product
 
 
@@ -9,11 +10,28 @@ class Category:
     def __init__(self, name: str, description: str, products: list):
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
 
         # Обновляем атрибуты класса
         Category.category_count += 1
         Category.product_count += len(products)
+
+    def add_product(self, product):
+        """Добавляет товар в приватный список продуктов."""
+        self.__products.append(product)
+        Category.product_count += 1  # Увеличиваем счетчик товаров
+
+    @property
+    def products(self):
+        """Геттер для получения списка товаров."""
+        return self.__products
+
+    def get_products_info(self):
+        """Возвращает строку с информацией о товарах."""
+        return "\n".join(
+            f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт."
+            for product in self.__products
+        )
 
 
 def load_categories_from_json(file_path: str):
