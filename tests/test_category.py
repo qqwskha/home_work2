@@ -65,6 +65,7 @@ def test_add_valid_product():
     category.add_product(product)
     assert len(category._Category__products) == 1
 
+
 def test_add_invalid_product():
     category = Category("Test", "Description", [])
     invalid_product = "Not a product"

@@ -43,7 +43,7 @@ class Product:
 
     def __add__(self, other):
         """Магический метод сложения двух продуктов."""
-        if type(self) == type(other):  # Проверяем, что объекты одного типа
+        if isinstance(other, type(self)):  # Проверяем, что объекты одного типа
             return self.price * self.quantity + other.price * other.quantity
         raise TypeError("Нельзя складывать объекты разных типов")
 

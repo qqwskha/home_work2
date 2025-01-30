@@ -44,6 +44,7 @@ def test_product_addition():
     product2 = Product("Товар 2", "Описание", 200.0, 5)
     assert product1 + product2 == 2000.0
 
+
 def test_smartphone_creation():
     smartphone = Smartphone(
         "Samsung Galaxy S23 Ultra", "256GB, Серый цвет, 200MP камера", 180000.0, 5,
@@ -58,6 +59,7 @@ def test_smartphone_creation():
     assert smartphone.memory == 256
     assert smartphone.color == "Серый"
 
+
 def test_lawn_grass_creation():
     grass = LawnGrass(
         "Газонная трава", "Элитная трава для газона", 500.0, 20,
@@ -71,15 +73,17 @@ def test_lawn_grass_creation():
     assert grass.germination_period == "7 дней"
     assert grass.color == "Зеленый"
 
+
 def test_addition_same_class():
     smartphone1 = Smartphone("Samsung", "Desc", 100.0, 10, 90.0, "Model", 128, "Black")
     smartphone2 = Smartphone("Apple", "Desc", 200.0, 5, 95.0, "Model", 256, "White")
     assert smartphone1 + smartphone2 == 2000.0
 
+
 def test_addition_different_classes():
     smartphone = Smartphone("Samsung", "Desc", 100.0, 10, 90.0, "Model", 128, "Black")
     grass = LawnGrass("Grass", "Desc", 50.0, 20, "USA", "5 days", "Green")
     try:
-        result = smartphone + grass
+        smartphone + grass
     except TypeError as e:
         assert str(e) == "Нельзя складывать объекты разных типов"
