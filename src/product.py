@@ -27,10 +27,14 @@ class LoggingMixin:
         return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
 
 
-class Product(LoggingMixin, BaseProduct):
+class Product:
     def __init__(self, name: str, description: str, price: float, quantity: int):
-        super().__init__(name, description, price, quantity)
-        self.__price = price  # Приватный атрибут
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
+        self.name = name
+        self.description = description
+        self.price = price
+        self.quantity = quantity
 
     @property
     def price(self):
