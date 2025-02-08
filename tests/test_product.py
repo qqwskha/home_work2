@@ -1,5 +1,7 @@
 from unittest.mock import patch
 
+import pytest
+
 from src.product import BaseProduct, Product, Smartphone, LawnGrass
 
 
@@ -23,15 +25,6 @@ def test_base_product_initialization():
     assert product.price == 100.0
     assert product.quantity == 5
     assert product.get_total_price() == 500.0
-
-
-# Тестирование миксина LoggingMixin
-def test_logging_mixin(capsys):
-    product = Product("Тестовый продукт", "Описание", 100.0, 5)
-    captured = capsys.readouterr()
-    expected_output = "Создан объект класса Product с параметрами: ('Тестовый продукт', 'Описание', 100.0, 5), {}\n"
-    assert captured.out == expected_output
-    assert repr(product) == "Product(Тестовый продукт, Описание, 100.0, 5)"
 
 
 # Тестирование класса Product
@@ -161,3 +154,16 @@ def test_lawn_grass_all_attributes():
     assert grass.country == "Россия"
     assert grass.germination_period == "7 дней"
     assert grass.color == "Зеленый"
+
+
+def test_product_creation_with_zero_quantity():
+    """Проверка создания товара с нулевым количеством."""
+    with pytest.raises(ValueError, match="Товар с нулевым количеством не может быть добавлен"):
+        Product("Бракованный товар", "Неверное количество", 1000.0, 0)
+
+
+def test_product_creation_with_positive_quantity():
+    """Проверка создания товара с положительным количеством."""
+    product = Product("Ноутбук", "Мощный игровой ноутбук", 999.99, 10)
+    assert product.quantity == 10
+

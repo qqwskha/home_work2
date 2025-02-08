@@ -144,3 +144,17 @@ def test_private_products_attribute():
     electronics = Category("Электроника", "Техника для дома и офиса", [product1])
     assert hasattr(electronics, '_Category__products')  # Проверка наличия приватного атрибута
     assert electronics._Category__products == [product1]  # Прямой доступ к приватному атрибуту
+
+
+def test_middle_price_with_products():
+    """Проверка расчета средней цены для категории с товарами."""
+    product1 = Product("Ноутбук", "Мощный игровой ноутбук", 999.99, 10)
+    product2 = Product("Смартфон", "Смартфон с OLED-экраном", 699.99, 15)
+    electronics = Category("Электроника", "Техника для дома и офиса", [product1, product2])
+    assert electronics.middle_price() == (999.99 + 699.99) / 2
+
+
+def test_middle_price_with_empty_category():
+    """Проверка расчета средней цены для пустой категории."""
+    empty_category = Category("Пустая категория", "Описание", [])
+    assert empty_category.middle_price() == 0
