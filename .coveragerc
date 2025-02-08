@@ -1,0 +1,9 @@
+[run]
+source = src
+omit =
+    src/main.py  # Исключаем main.py из анализа
+
+[report]
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:  # Исключаем блоки, которые выполняются только при запуске скрипта
