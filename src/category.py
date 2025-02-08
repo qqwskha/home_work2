@@ -1,9 +1,14 @@
 import json
-
+from abc import ABC, abstractmethod
 from src.product import Product
 
+class BaseEntity(ABC):
+    @abstractmethod
+    def __str__(self):
+        pass
 
-class Category:
+
+class Category(BaseEntity):
     category_count = 0  # Атрибут класса для подсчета категорий
     product_count = 0   # Атрибут класса для подсчета товаров
 
@@ -11,7 +16,6 @@ class Category:
         self.name = name
         self.description = description
         self.__products = products
-
         # Обновляем атрибуты класса
         Category.category_count += 1
         Category.product_count += len(products)
@@ -49,7 +53,6 @@ def load_categories_from_json(file_path: str):
     """
     with open(file_path, "r", encoding="utf-8") as file:
         data = json.load(file)
-
     categories = []
     for category_data in data:
         # Создаем список товаров для категории
@@ -62,7 +65,6 @@ def load_categories_from_json(file_path: str):
             )
             for product_data in category_data["products"]
         ]
-
         # Создаем объект Category
         category = Category(
             name=category_data["name"],
@@ -70,5 +72,4 @@ def load_categories_from_json(file_path: str):
             products=products
         )
         categories.append(category)
-
     return categories
