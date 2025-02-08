@@ -1,32 +1,43 @@
-class Product:
+from abc import ABC, abstractmethod
+
+class BaseProduct(ABC):
+    @abstractmethod
     def __init__(self, name: str, description: str, price: float, quantity: int):
         self.name = name
         self.description = description
-        self.__price = price  # Приватный атрибут
+        self.price = price
         self.quantity = quantity
 
-    @classmethod
-    def new_product(cls, product_data: dict):
-        """
-        Создает новый продукт на основе данных из словаря.
-        :param product_data: Словарь с данными продукта.
-        :return: Экземпляр класса Product.
-        """
-        return cls(
-            name=product_data["name"],
-            description=product_data.get("description", ""),
-            price=product_data["price"],
-            quantity=product_data["quantity"]
-        )
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def get_total_price(self) -> float:
+        """Абстрактный метод для расчета общей стоимости товара."""
+        pass
+
+
+class LoggingMixin:
+    def __init__(self, *args, **kwargs):
+        print(f"Создан объект класса {self.__class__.__name__} с параметрами: {args}, {kwargs}")
+        super().__init__(*args, **kwargs)
+
+    def __repr__(self):
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
+
+
+class Product(LoggingMixin, BaseProduct):
+    def __init__(self, name: str, description: str, price: float, quantity: int):
+        super().__init__(name, description, price, quantity)
+        self.__price = price  # Приватный атрибут
 
     @property
     def price(self):
-        """Геттер для цены."""
         return self.__price
 
     @price.setter
     def price(self, new_price: float):
-        """Сеттер для цены."""
         if new_price <= 0:
             print("Цена не должна быть нулевая или отрицательная")
         else:
@@ -38,13 +49,14 @@ class Product:
             self.__price = new_price
 
     def __str__(self):
-        """Строковое представление продукта."""
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
 
+    def get_total_price(self) -> float:
+        return self.price * self.quantity
+
     def __add__(self, other):
-        """Магический метод сложения двух продуктов."""
-        if isinstance(other, type(self)):  # Проверяем, что объекты одного типа
-            return self.price * self.quantity + other.price * other.quantity
+        if isinstance(other, type(self)):
+            return self.get_total_price() + other.get_total_price()
         raise TypeError("Нельзя складывать объекты разных типов")
 
 
