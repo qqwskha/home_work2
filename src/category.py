@@ -20,6 +20,13 @@ class Category(BaseEntity):
         Category.category_count += 1
         Category.product_count += len(products)
 
+    def middle_price(self):
+        """Вычисляет среднюю цену всех товаров в категории."""
+        if not self.products:
+            return 0  # Если товаров нет, возвращаем 0
+        total_price = sum(product.price for product in self.products)
+        return total_price / len(self.products)
+
     def add_product(self, product):
         """Добавляет товар в приватный список продуктов."""
         if isinstance(product, Product):  # Проверяем, что объект является продуктом
