@@ -2,17 +2,6 @@ from abc import ABC, abstractmethod
 
 class BaseProduct(ABC):
     @abstractmethod
-    def __init__(self, name: str, description: str, price: float, quantity: int):
-        self.name = name
-        self.description = description
-        self.price = price
-        self.quantity = quantity
-
-    @abstractmethod
-    def __str__(self):
-        pass
-
-    @abstractmethod
     def get_total_price(self) -> float:
         """Абстрактный метод для расчета общей стоимости товара."""
         pass
@@ -20,6 +9,7 @@ class BaseProduct(ABC):
 
 class LoggingMixin:
     def __init__(self, *args, **kwargs):
+        # Выводим информацию о созданном объекте
         print(f"Создан объект класса {self.__class__.__name__} с параметрами: {args}, {kwargs}")
         super().__init__(*args, **kwargs)
 
@@ -27,14 +17,15 @@ class LoggingMixin:
         return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
 
 
-class Product:
+class Product(LoggingMixin, BaseProduct):
     def __init__(self, name: str, description: str, price: float, quantity: int):
         if quantity <= 0:
             raise ValueError("Товар с нулевым количеством не может быть добавлен")
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price  # Приватный атрибут
         self.quantity = quantity
+        super().__init__()
 
     @property
     def price(self):
@@ -43,7 +34,7 @@ class Product:
     @price.setter
     def price(self, new_price: float):
         if new_price <= 0:
-            print("Цена не должна быть нулевая или отрицательная")
+            print("Цена не должна быть нулевой или отрицательной")
         else:
             if hasattr(self, '_Product__price') and new_price < self.__price:
                 confirmation = input("Цена снижается. Подтвердите действие (y/n): ")
